@@ -2,6 +2,8 @@ import Header from './Header';
 import { useNavigate } from 'react-router-dom';
 import React, {useState} from 'react';
 
+const apiUrl = 'http://day-env.eba-ffubwman.ap-southeast-1.elasticbeanstalk.com/api';
+
 function Login()
 {
 	const [email,setEmail]=useState("");
@@ -12,7 +14,7 @@ function Login()
 	{
 		let item={email,password};
 		console.warn(item);
-		let result= await fetch("https://day-env.eba-ffubwman.ap-southeast-1.elasticbeanstalk.com/api/login",{
+		let result= await fetch(apiUrl + "/login",{
 			method:'POST',
 			body:JSON.stringify(item),
 			headers:{

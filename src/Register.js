@@ -1,42 +1,43 @@
-import React, {useState} from 'react';
 import Header from './Header';
 import { useNavigate } from 'react-router-dom';
-import './App.scss'
+import React, { useState } from 'react';
 
-function Register()
-{
-	const [name,setName]=useState("");
-	const [email,setEmail]=useState("");
-	const [password,setPassword]=useState("");
-	const navigate = useNavigate();
+const apiUrl = 'https://day-env.eba-ffubwman.ap-southeast-1.elasticbeanstalk.com/api';
 
-	async function signUp()
-	{
-		let item={name,email,password};
-		console.warn(item);
-		let result= await fetch("https://day-env.eba-ffubwman.ap-southeast-1.elasticbeanstalk.com/api/register",{
-			method:'POST',
-			body:JSON.stringify(item),
-			headers:{
-				"Content-Type":'application/json',
-				"Accept":'application/json'
-			}
-		})
-		result = await result.json();
-		console.warn("result",result);
-		navigate('/login');
-	}
-	return(
-		<div>
-			<Header />
-		<div className='col-sm-6 offset-sm-3 head'>
-	      <h1>Register page</h1>
-	      <input type="text" value={name} onChange={(e)=>setName(e.target.value)} className="form-control" placeholder="username" /><br />
-	      <input type="email" value={email} onChange={(e)=>setEmail(e.target.value)} className="form-control" placeholder="email" /><br />
-	      <input type="password" value={password} onChange={(e)=>setPassword(e.target.value)} className="form-control" placeholder="password" /><br />
-	      <button onClick={signUp} className="btn btn-primary">Sign up</button>
-	    </div>
-	    </div>
-	);
+function Login() {
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+    const navigate = useNavigate();
+
+    async function login() {
+        let item = { email, password };
+        console.warn(item);
+        let result = await fetch(apiUrl + "/register", {
+            method: 'POST',
+            body: JSON.stringify(item),
+            headers: {
+                "Content-Type": 'application/json',
+                "Accept": 'application/json'
+            }
+        });
+        result = await result.json();
+        console.warn("result", result);
+        navigate('/home');
+    }
+
+    return (
+        <div>
+            <Header />
+            <div className="flex justify-center items-center bg-black  w-full h-screen">
+                <div className='col-sm-6 text-center  bg-gray-100 rounded-xl shadow border'>
+                    <h1 className='text-black font-bold py-2 rounded'>Login page</h1>
+                    <input className="form-control py-2" type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="Email" />
+                    <input className="form-control my-4" type="password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Password" />
+                    <button onClick={login} className="btn btn-primary">Login</button>
+                </div>
+            </div>
+        </div>
+    );
 }
-export default Register
+
+export default Login;
