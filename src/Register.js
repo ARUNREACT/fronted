@@ -14,7 +14,7 @@ function Register()
 	{
 		let item={name,email,password};
 		console.warn(item);
-		let result= await fetch("http://day-env.eba-ffubwman.ap-southeast-1.elasticbeanstalk.com/api/register",{
+		let result= await fetch("https://day-env.eba-ffubwman.ap-southeast-1.elasticbeanstalk.com/api/register",{
 			method:'POST',
 			body:JSON.stringify(item),
 			headers:{
